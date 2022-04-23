@@ -3,9 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UPC.Bagueteria.Domain;
+using UPC.Bagueteria.Domain.IRepositories.ICustomerRepositories;
+using UPC.Bagueteria.Domain.IRepositories.ISalesRepositories;
 using UPC.Bagueteria.Domain.IRepositories.ISecurityRepositories;
 using UPC.Bagueteria.Domain.IRepositories.IStockRepositories;
 using UPC.Bagueteria.Infra.Dao.Context;
+using UPC.Bagueteria.Infra.Dao.Repositories.CustomerRepositories;
+using UPC.Bagueteria.Infra.Dao.Repositories.SalesRepositories;
 using UPC.Bagueteria.Infra.Dao.Repositories.SecurityRepositories;
 using UPC.Bagueteria.Infra.Dao.Repositories.StockRepositories;
 
@@ -22,10 +26,14 @@ namespace UPC.Bagueteria.Infra.Dao
 
             Login = new LoginRepository(_adoContext);
             Stock = new StockRepository(_adoContext);
+            Customer = new CustomerRepository(_adoContext);
+            Sales = new SalesRepository(_adoContext);
         }
 
         public ILoginRepository Login { get; private set; }
         public IStockRepository Stock { get; private set; }
+        public ICustomerRepository Customer { get; private set; }
+        public ISalesRepository Sales { get; private set; }
 
         public void Dispose()
         {
