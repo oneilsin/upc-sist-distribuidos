@@ -12,5 +12,7 @@ namespace UPC.Bagueteria.Domain.IRepositories.ISalesRepositories
         Task<EntityResponse> UpdateSale(Sales sales);
         Task<EntityResponse> GetPaymentList();
         Task<EntityResponse> GetSalesPendingList();
+        Task<EntityResponse> GetSalesByCustomer(int idCustomer);
+        Task<EntityResponse> GetSalesDetailById(int idSales);
     }
 }

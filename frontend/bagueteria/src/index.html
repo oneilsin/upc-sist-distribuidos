@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Bagueteria</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/Site.css">
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.css">
+  <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+  <app-root></app-root>
+
+  <div>
+    <hr>
+    <p>Pie de página</p>
+  </div>
+
+  <script src="assets/bootstrap/js/jquery-3.4.1.js"></script>
+  <script src="assets/bootstrap/js/jquery-3.4.1.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#table-items').DataTable({
+        });
+        $('#table-carts').DataTable({
+          "dom": 'rtb'
+        });
+      });
+    </script>
+  </body>
+
+</html>

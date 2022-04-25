@@ -1,0 +1,66 @@
+<div class="container py-3">
+    <div class="card p-1">
+        <h4>Hola {{userForm.get('nombres')?.value}}, revisa el estado de tus compras.</h4>
+    </div>
+    <div class="justify-content-center align-items-center" style="width: 100%;">
+        <div class="pb-3">
+            <div class="py-1"><table class="table table-hover" id="table-items" style="width:100%">  
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Delivery?</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Attended</th>
+                        <th scope="col"  style="width: 120px; text-align: right;">Total Amount</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let c of saleList">
+                        <tr>
+                            <td style="width: 60px; text-align: center;">{{c.salesID}}</td>
+                            <td style="width: 100px; text-align: center;">{{c.date|date}}</td>
+                            <td style="width: 60px; text-align: center;">{{c.delivery}}</td>
+                            <td>{{c.payment}}</td>
+                            <td style="width: 60px; text-align: center;">{{c.attendedStatus}}</td>
+                            <td style="width: 36px; text-align: right;">{{c.totalAmount}}</td>
+                            <td>
+                                
+                                <button (click)="showDetails(c.salesID)" class="btn btn-outline-primary" type="button" data-toggle="collapse"
+                                data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Details</button>
+                            </td>
+                        </tr>
+                </tbody>
+              
+            </table>
+               
+        </div>     
+        <hr>
+
+        <div class="pb-3">         
+            <div class="collapse" id="collapseExample">
+                <h6>Detalles</h6>
+                <div class="card card-body">
+                    <div class="py-1"><table class="table table-hover" id="table-carts" style="width:100%">  
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Product description</th>
+                                    <th scope="col">U.Price</th>
+                                    <th scope="col">Q.</th>
+                                    <th scope="col">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let c of detailList">
+                                <tr>
+                                    <td style="width: 48px; text-align: center;">{{c.orderID}}</td>
+                                    <td>{{c.product}}</td>
+                                    <td style="width: 48px; text-align: center;">{{c.unitPrice}}</td>
+                                    <td style="width: 48px; text-align: center;">{{c.quantity}}</td>
+                                    <td style="width: 56px; text-align: right;">{{c.amount}}</td>
+                                </tr>
+                    </table>
+                </div>
+            </div>
+        </div> 
+</div>

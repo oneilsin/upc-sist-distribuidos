@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UPC.Bagueteria.Domain.IRepositories.ISalesRepositories;
 using UPC.Bagueteria.Domain.Models;
+using UPC.Bagueteria.Domain.Queries.ProductQuerieResult;
 using UPC.Bagueteria.Domain.Queries.SalesQuerieResult;
 
 namespace UPC.Bagueteria.Infra.Dao.Repositories.SalesRepositories
@@ -89,6 +90,115 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.SalesRepositories
                     {
                         IsSuccess = true,
                         Data = objPay
+                    };
+
+                }
+                else
+                {
+                    objReturn = new EntityResponse()
+                    {
+                        IsSuccess = false,
+                        ErrorMessage = "No se ha encontrado datos.",
+                        Data = null
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                objReturn = new EntityResponse()
+                {
+                    IsSuccess = false,
+                    ErrorMessage = ex.Message,
+                    Data = null
+                };
+            }
+            return objReturn;
+        }
+
+        public async Task<EntityResponse> GetSalesByCustomer(int idCustomer)
+        {
+            EntityResponse objReturn;
+            string query = @"
+                    SELECT 
+	                    sl.SalesID,	sl.[Date], sl.Delivery,py.[Description] AS Payment,
+	                    sl.TotalAmount, sl.AttendedStatus
+                    FROM Sales sl
+                    INNER JOIN Payment py ON py.PaymentID=sl.PaymentID
+                    WHERE sl.CustomerID=@CustomerID
+            ";
+            try
+            {
+                var response = await _adoContext.ExecuteReader<SalesLogQuery>(
+                query,
+                System.Data.CommandType.Text,
+                new SqlParameter("@CustomerID", idCustomer)
+                );
+                if (response != null)
+                {
+                    var objSales = new List<SalesLogQuery>();
+                    objSales = response.ToList();
+                    objReturn = new EntityResponse()
+                    {
+                        IsSuccess = true,
+                        Data = objSales
+                    };
+
+                }
+                else
+                {
+                    objReturn = new EntityResponse()
+                    {
+                        IsSuccess = false,
+                        ErrorMessage = "No se ha encontrado datos.",
+                        Data = null
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                objReturn = new EntityResponse()
+                {
+                    IsSuccess = false,
+                    ErrorMessage = ex.Message,
+                    Data = null
+                };
+            }
+            return objReturn;
+        }
+
+        public async Task<EntityResponse> GetSalesDetailById(int idSales)
+        {
+            EntityResponse objReturn;
+            string query = @"
+                SELECT o.OrderID,
+		            o.StockID,
+		            p.[Name] AS Product,
+		            pc.Price AS UnitPrice,
+		            s.Quantity,
+		            o.Amount,
+		            p.ImageName AS Photo,
+		            o.SalesID
+	            FROM Orders o
+	            INNER JOIN Stock s ON s.StockID=o.StockID
+	            INNER JOIN Product p ON p.ProductID=s.ProductID
+	            INNER JOIN Prices pc ON pc.ProductID=p.ProductID
+	            WHERE o.SalesID=@SalesID
+            ";
+            try
+            {
+                var response = await _adoContext.ExecuteReader<ProductCart>(
+                query,
+                System.Data.CommandType.Text,
+                 new SqlParameter("@SalesID", idSales)
+                );
+                if (response != null)
+                {
+                    var objCart = new List<ProductCart>();
+                    objCart = response.ToList();
+                    objReturn = new EntityResponse()
+                    {
+                        IsSuccess = true,
+                        Data = objCart
                     };
 
                 }

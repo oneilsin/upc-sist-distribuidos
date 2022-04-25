@@ -21,10 +21,13 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.SecurityRepositories
         {
             EntityResponse objReturn;
 
-            string sqlQuery = "SELECT " +
-                "CustomerID AS IdUsuario, [Name] AS Nombres, LastName AS Apellidos, CardID As Documento, Email " +
-                "FROM Customer " +
-                "WHERE Email = @email AND Password = @password";
+            string sqlQuery = @"
+                SELECT
+	                CustomerID AS IdUsuario, [Name] AS Nombres, LastName AS Apellidos, 
+	                CardID As Documento, Email, [Role]
+                FROM Customer
+                WHERE Email = @email AND Password = @password
+            ";
             try
             {
                 var response = await _adoContext.ExecuteReader<LoginResponse>(sqlQuery,

@@ -169,7 +169,7 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.StockRepositories
         {
             EntityResponse objReturn;
             string query = @"
-                    SELECT sto.ProductID, cat.[Name] AS Category, sto.[Name] AS Producto, pri.Price AS Precio, sto.Stock 
+                    SELECT sto.ProductID, cat.[Name] AS Category, sto.[Name] AS Producto, sto.[Description], pri.Price AS Precio, sto.Photo, sto.Stock 
                     FROM VwStock sto 
                     INNER JOIN Category cat ON cat.CategoryID=sto.CategoryID 
                     INNER JOIN Prices pri ON pri.ProductID=sto.ProductID 

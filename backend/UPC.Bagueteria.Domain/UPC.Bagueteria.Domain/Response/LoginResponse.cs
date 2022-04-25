@@ -11,5 +11,6 @@ namespace UPC.Bagueteria.Domain.Response
         public string Apellidos { get; set; }
         public string Documento { get; set; }
         public string Email { get; set; }
+        public string Role { get; set; }
     }
 }

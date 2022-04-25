@@ -75,5 +75,30 @@ namespace UPC.Bagueteria.API.Controllers.SalesControllers
                 return Json(response);
             }
         }
+
+        [Produces("application/json")]
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("GetSalesByCustomer")]
+        public async Task<ActionResult> GetSalesByCustomer(int idCustomer)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                var response = await uow.Sales.GetSalesByCustomer(idCustomer);
+                return Json(response);
+            }
+        }
+        [Produces("application/json")]
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("GetSalesDetailById")]
+        public async Task<ActionResult> GetSalesDetailById(int idSales)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                var response = await uow.Sales.GetSalesDetailById(idSales);
+                return Json(response);
+            }
+        }
     }
 }

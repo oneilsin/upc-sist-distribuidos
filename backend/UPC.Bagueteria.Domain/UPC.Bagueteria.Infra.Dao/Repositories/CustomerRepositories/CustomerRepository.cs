@@ -44,13 +44,12 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.CustomerRepositories
                         IsSuccess = true,
                         Data = new
                         {
-                            CustomerID = objCustomer.CustomerID,
-                            Name = objCustomer.Name,
-                            LastName = objCustomer.LastName,
-                            CardID = objCustomer.CardID,
-                            Bithday = objCustomer.Bithday,
-                            Gender = objCustomer.Gender,
-                            Email = objCustomer.Email
+                            IdUsuario = objCustomer.CustomerID,
+                            Nombres = objCustomer.Name,
+                            Apellidos = objCustomer.LastName,
+                            Documento = objCustomer.CardID,
+                            Email = objCustomer.Email,
+                            Role = objCustomer.Role                           
                         }
                     };
 
@@ -153,13 +152,12 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.CustomerRepositories
                         IsSuccess = true,
                         Data = new
                         {
-                            CustomerID = objCustomer.CustomerID,
-                            Name = objCustomer.Name,
-                            LastName = objCustomer.LastName,
-                            CardID = objCustomer.CardID,
-                            Bithday = objCustomer.Bithday,
-                            Gender = objCustomer.Gender,
-                            Email = objCustomer.Email
+                            IdUsuario = objCustomer.CustomerID,
+                            Nombres = objCustomer.Name,
+                            Apellidos = objCustomer.LastName,
+                            Documento = objCustomer.CardID,
+                            Email = objCustomer.Email,
+                            Role = objCustomer.Role
                         }
                     };
 

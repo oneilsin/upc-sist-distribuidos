@@ -32,6 +32,8 @@ namespace UPC.Bagueteria.API.Controllers.ProductControllers
                     {
                         ProductID = o.ProductID,
                         Producto = o.Producto,
+                        Description = o.Description,
+                        Photo = o.Photo,
                         Precio = o.Precio,
                         Stock = o.Stock,
                     });

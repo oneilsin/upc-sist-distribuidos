@@ -1,0 +1,32 @@
+<div class="card ">
+    <div class="card-body " >
+        <button (click)="getProductByCategory(3)" type="submit" class="btn btn-secondary">Var variedad de panes...</button>
+        <button (click)="getProductByCategory(2)" type="submit" class="btn btn-secondary">Ver pasteles y más...</button>
+    </div>
+  </div>
+<br>
+<div class="justify-content-center align-items-center" style="width: 100%;">
+
+    <div [formGroup]='productForm' class="row g-5 py-5" >
+        <div *ngFor="let o of productList" class="col-md-4 card box-shadow" style="width: 18rem;">
+          
+            <img src="../../../assets/img/{{o.photo}}.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h4 class="card-title">{{o.producto}} <br><span class="badge badge-secondary">S/.{{o.precio}}</span></h4>
+                <p class="card-text">{{o.description}}</p>                
+            </div>
+            <div class="card-footer">
+                <div class="input-group mb-3 ">
+                    <button class="btn btn-light">Stock: {{o.stock}}</button>
+                  
+                    <input formControlName="quantity" type="number" class="form-control" value="1">
+                   
+                    <div class="input-group-append">
+                      <button (click)="addItemToCart(o.productID)" class="btn btn-primary" type="submit" id="button-addon2">Add to Cart</button>
+                    </div>
+                  </div>
+            </div>
+            
+        </div>
+    </div>  
+</div>

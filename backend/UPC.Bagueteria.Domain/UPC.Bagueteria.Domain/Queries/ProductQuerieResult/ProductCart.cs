@@ -12,5 +12,6 @@ namespace UPC.Bagueteria.Domain.Queries.ProductQuerieResult
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal Amount { get; set; }
+        public string Photo { get; set; }
     }
 }
