@@ -1,114 +1,123 @@
 <div class="container py-3">
     <div class="card p-1">
         <h4>{{userForm.get('nombres')?.value}}: Wellcome to your Cart</h4>
-    </div>
-    <div class="justify-content-center align-items-center" style="width: 100%;">
-        <div class="pb-3">
-            <div class="py-1">
-                <table [formGroup]="productForm" class="table table-hover" id="table-carts" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product description</th>
-                            <th scope="col">U.Price</th>
-                            <th scope="col">Q.</th>
-                            <th scope="col">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let c of cartList">
-                        <tr>
-                            <td>{{c.product}}</td>
-                            <td style="width: 48px; text-align: center;">{{c.unitPrice}}</td>
-                            <td style="width: 48px; text-align: center;">{{c.quantity}}</td>
-                            <td style="width: 56px; text-align: right;">{{c.amount}}</td>
-                        </tr>
-                    </tbody>
+        <div *ngIf="total==0" class="alert alert-danger" role="alert">
+            <strong>No tienes ningun producto en la canastilla...</strong>
+            <button (click)="continueShoping()" type="button" class="btn btn-outline-danger">Buscar productos</button>
+        </div>
+        <div *ngIf="total>0" class="justify-content-center align-items-center" style="width: 100%;">
+            <div class="pb-3">
+                <div class="py-1">
+                    <table class="table table-hover" id="table-carts" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product description</th>
+                                <th scope="col">U.Price</th>
+                                <th scope="col">Q.</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let c of cartList">
+                            <tr>
+                                <td>{{c.product}}</td>
+                                <td style="width: 48px; text-align: center;">{{c.unitPrice}}</td>
+                                <td style="width: 48px; text-align: center;">{{c.quantity}}</td>
+                                <td style="width: 56px; text-align: right;">{{c.amount}}</td>
+                            </tr>
+                        </tbody>
 
-                </table>
-                <div class="card-body text-right">
-                    <h6>Total a pagar: S/.<b>({{total}})</b></h6>
+                    </table>
+                    <div class="card-body text-right">
+                        <h6>Total a pagar: S/.<b>({{total}})</b></h6>
+                    </div>
                 </div>
-            </div>
 
-            <div>
-                <p>
-                    <button (click)="continueShoping()" type="button" class="btn btn-outline-primary">Seguir
-                        comprando</button>
-                    <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
-                        data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Cómo te gustaría pagar?
-                    </button>
-                </p>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        <form [formGroup]='saleForm'>
-                            <div class="form-row align-items-center">
-                              <div class="col-auto my-3">
-                                <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                                <select formControlName="paymentID" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                  <option  disabled selected [ngValue]="null">--Seleccione el método de pago--</option>
-                                  <option *ngFor="let p of payList" [ngValue]="p.paymentID">{{p.description}}</option>
-                                </select>
-                              </div>
-                              <div class="col-auto my-1">
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                  <input type="checkbox" formControlName="delivery" class="custom-control-input" id="customControlAutosizing">
-                                  <label class="custom-control-label" for="customControlAutosizing">Delivery?
-                                      <small class="text-muted">Marca la casilla para servicio de delivery.</small>
-                                  </label>
+                <div>
+                    <p>
+                        <button (click)="continueShoping()" type="button" class="btn btn-outline-primary">Seguir
+                            comprando</button>
+                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
+                            data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Cómo te gustaría pagar?
+                        </button>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <form [formGroup]='saleForm'>
+                                <div class="form-row align-items-center">
+                                    <div class="col-auto my-3">
+                                        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                                        <select formControlName="paymentID" class="custom-select mr-sm-2"
+                                            id="inlineFormCustomSelect">
+                                            <option disabled selected [ngValue]="null">--Seleccione el método de pago--
+                                            </option>
+                                            <option *ngFor="let p of payList" [ngValue]="p.paymentID">{{p.description}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-auto my-1">
+                                        <div class="custom-control custom-checkbox mr-sm-2">
+                                            <input type="checkbox" formControlName="delivery"
+                                                class="custom-control-input" id="customControlAutosizing">
+                                            <label class="custom-control-label" for="customControlAutosizing">Delivery?
+                                                <small class="text-muted">Marca la casilla para servicio de
+                                                    delivery.</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto my-1">
+                                        <button (click)="shippingAll()" type="submit" class="btn btn-primary">Generar
+                                            compra</button>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-auto my-1">
-                                <button (click)="getValues()" type="button" class="btn btn-primary">Generar compra</button>
-                              </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div [formGroup]='productForm' class="row g-5 py-1">
+                <div *ngFor="let o of cartList" class="col-md-4 card box-shadow" style="width: 18rem;">
+
+                    <img src="../../../assets/img/{{o.photo}}.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title">{{o.product}} </h4>
+                        <hr>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="Cantidad..." disabled
+                                aria-label="Dollar amount (with dot and two decimal places)">
+                            <div class="input-group-append">
+                                <span class="input-group-text"
+                                    style="width: 86px; text-align: right;"><b>{{o.quantity}}</b></span>
                             </div>
-                        </form>
-                    </div>
-         
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div [formGroup]='productForm' class="row g-5 py-1">
-            <div *ngFor="let o of cartList" class="col-md-4 card box-shadow" style="width: 18rem;">
-
-                <img src="../../../assets/img/{{o.photo}}.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h4 class="card-title">{{o.product}} </h4>
-                    <hr>
-
-                    <div class="input-group">
-                        <input type="text" class="form-control" value="Cantidad..." disabled
-                            aria-label="Dollar amount (with dot and two decimal places)">
-                        <div class="input-group-append">
-                            <span class="input-group-text"
-                                style="width: 86px; text-align: right;"><b>{{o.quantity}}</b></span>
                         </div>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" class="form-control" value="Precio Unitario..." disabled
-                            aria-label="Dollar amount (with dot and two decimal places)">
-                        <div class="input-group-append">
-                            <span class="input-group-text" style="width: 86px;"><b>S/. {{o.unitPrice}}</b></span>
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="Precio Unitario..." disabled
+                                aria-label="Dollar amount (with dot and two decimal places)">
+                            <div class="input-group-append">
+                                <span class="input-group-text" style="width: 86px;"><b>S/. {{o.unitPrice}}</b></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" class="form-control" value="Total importe..." disabled
-                            aria-label="Dollar amount (with dot and two decimal places)">
-                        <div class="input-group-append">
-                            <span class="input-group-text" style="width: 86px;"><b>S/. {{o.amount}}</b></span>
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="Total importe..." disabled
+                                aria-label="Dollar amount (with dot and two decimal places)">
+                            <div class="input-group-append">
+                                <span class="input-group-text" style="width: 86px;"><b>S/. {{o.amount}}</b></span>
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="input-group mb-3 ">
-                    <input type="number" class="form-control" value="{{o.quantity}}">
-                    <div class="input-group-append">
-                        <button (click)="editItemOnCart(o.orderID, o.stockID, o.quantity)" class="btn btn-primary"
-                            type="submit" id="button-addon2">Edit quantity items</button>
+                    </div>
+                    <div class="input-group mb-3 ">
+                        <input formControlName="quantity" type="number" class="form-control" value="{{o.quantity}}">
+                        <div class="input-group-append">
+                            <button (click)="editItemOnCart(o.orderID, o.stockID)" class="btn btn-primary" type="submit"
+                                id="button-addon2">Edit quantities</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-
-</div>

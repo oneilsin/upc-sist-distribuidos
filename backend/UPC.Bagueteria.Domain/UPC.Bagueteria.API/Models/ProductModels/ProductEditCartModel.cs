@@ -2,8 +2,8 @@
 {
     public class ProductEditCartModel
     {
+        public int OrderID { get; set; }
         public int Quantity { get; set; }
         public int StockID { get; set; }
-        public int OrderID { get; set; }
     }
 }

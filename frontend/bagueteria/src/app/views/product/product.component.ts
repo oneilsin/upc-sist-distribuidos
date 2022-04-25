@@ -45,6 +45,7 @@ export class ProductComponent implements OnInit {
         this.productService.addToCart(this.productForm.value).subscribe((r:any)=>{
           if(r.isSuccess){
             this.countCart(r.data.customerID);
+            window.location.reload();
           }
         });
        // console.log(this.productForm.value);
@@ -64,12 +65,13 @@ export class ProductComponent implements OnInit {
         _cartCount = rs.data.length;
         sessionStorage.setItem('cart', String(_cartCount));
         //console.log(rs.data.length);
+
       }
     });   
   }
   ngOnInit(): void {
     this.getProductByCategory(2);
   
-
+//
   }
 }

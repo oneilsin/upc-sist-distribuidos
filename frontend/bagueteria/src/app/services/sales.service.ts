@@ -10,11 +10,12 @@ export class SalesService {
 
   createSale(data: any[]){
     return this.http.post<any>('https://localhost:44309/api/Sales/CreateSales',data);
-    // https://localhost:44309/api/Sales/CreateSales
   }
+
   getPayment(){
     return this.http.get<any>('https://localhost:44309/api/Sales/GetPayment');
   }
+  
   getSalesByCustomer(idCustomer:number){
     return this.http.get<any>('https://localhost:44309/api/Sales/GetSalesByCustomer?idCustomer='+idCustomer);
   }
@@ -24,7 +25,7 @@ export class SalesService {
   getSalesPending(){
     return this.http.get<any>('https://localhost:44309/api/Sales/GetPendingSales');
   }
-  SetSaleDispatch(data:any){
+  SetSaleDispatch(data: any[]){
     return this.http.post<any>('https://localhost:44309/api/Sales/SetSaleDispatch',data);
   }
 }

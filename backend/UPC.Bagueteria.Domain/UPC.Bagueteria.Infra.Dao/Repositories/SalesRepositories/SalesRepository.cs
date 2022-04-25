@@ -24,7 +24,7 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.SalesRepositories
             string query = "UspSalesCreate";
             try
             {
-                var response = await _adoContext.ExecuteEscalarTransaction(
+                var response = await _adoContext.ExecuteNonQueryTransaction(
                 query,
                 System.Data.CommandType.StoredProcedure,
                 new SqlParameter[]
@@ -34,7 +34,7 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.SalesRepositories
                     new SqlParameter("@PaymentID", sales.PaymentID)
                 });
 
-                if (response != null)
+                if ((int)response >0)
                 {
                     objReturn = new EntityResponse()
                     {
@@ -125,6 +125,7 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.SalesRepositories
                     FROM Sales sl
                     INNER JOIN Payment py ON py.PaymentID=sl.PaymentID
                     WHERE sl.CustomerID=@CustomerID
+                    ORDER BY sl.SalesID DESC
             ";
             try
             {

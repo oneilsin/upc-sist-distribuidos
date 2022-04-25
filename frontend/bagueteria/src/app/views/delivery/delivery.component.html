@@ -1,8 +1,8 @@
 <div class="container py-3">
     <div class="card p-1">
-        <h4>Hola {{userForm.get('nombres')?.value}}, revisa el estado de tus compras.</h4>
+        <h4>Hola {{userForm.get('nombres')?.value}}, los pedidos por entregar.</h4>
     </div>
-    <div class="justify-content-center align-items-center" style="width: 100%;">
+    <div *ngIf="count>0" class="justify-content-center align-items-center" style="width: 100%;">
         <div class="pb-3">
             <div class="py-1"><table class="table table-hover" id="table-items" style="width:100%">  
                 <thead>

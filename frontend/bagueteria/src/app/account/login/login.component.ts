@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('token', JSON.stringify(rest.data));
         this.countCart(Number(rest.data.idUsuario));
         this.router.navigate(["product"]);
+        window.location.reload();
       } else {
         alert(rest.errorMessage);
       }
@@ -60,26 +61,26 @@ export class LoginComponent implements OnInit {
         if (rest.isSuccess) {
           sessionStorage.setItem('token', JSON.stringify(rest.data));
           this.countCart(Number(rest.data.idUsuario));
-          this.router.navigate(["product"]);
+         if(rest.data.role=="employee"){
+          window.location.href= "/delivery";
+         }else{
+          window.location.href= "/product";
+         }
+
+          // this.router.navigateByUrl("./views/product", { skipLocationChange: true }).then(() => {
+          //   // console.log(decodeURI(this._location.path()));
+          //   // this._router.navigate([decodeURI(this._location.path())]);
+          //   });
+
+        //this.router.navigate(["product"]);  
+       
+        //window.location.reload();
         } else {
           alert(rest.errorMessage);
         }
       })
     }
   //  console.log(this.loginForm.value);
-  }
-
-  _cAccount(name: any, mail: any, password: any) {
-    this.addForm.patchValue({
-      addName: name,
-      addEmail: mail,
-      addPassword: password
-    });
-  }
-  _eAccount(name: any, mail: any, password: any) {
-    this.editForm.patchValue({
-      editName: name,
-    });
   }
 
   ngOnInit(): void {
