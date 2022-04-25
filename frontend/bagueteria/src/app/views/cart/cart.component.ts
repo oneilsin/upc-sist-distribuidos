@@ -25,7 +25,7 @@ export class CartComponent implements OnInit {
     delivery: [false,[Validators.required]],
     paymentID: ['',[Validators.required, Validators.minLength(1)]]
   })
-  
+
 
   productForm = this.fb.group({
     stockID: ['', [Validators.required, Validators.minLength(1)]],
@@ -99,6 +99,7 @@ export class CartComponent implements OnInit {
 
 
     console.log(this.saleForm.value);
+    
     if(this.saleForm.valid){
       confirm("¿Desea finalizar la compra, esto cerrará la canastilla?.");
       this.salesService.createSale(this.saleForm.value).subscribe((rest:any)=>{
