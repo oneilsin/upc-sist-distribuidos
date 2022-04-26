@@ -233,7 +233,9 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.SalesRepositories
 	                        c.[Name]+' '+c.LastName AS Customer,
 	                        s.Delivery,
 	                        p.[Description] AS Payment,
-	                        s.TotalAmount
+	                        s.TotalAmount,
+                            c.[Address],
+							c.Referece
                         FROM Sales s
                         INNER JOIN Customer c ON c.CustomerID=s.CustomerID
                         INNER JOIN Payment p ON p.PaymentID=s.PaymentID

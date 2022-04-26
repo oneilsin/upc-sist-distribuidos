@@ -9,6 +9,8 @@ import { LoginComponent } from "./account/login/login.component";
 import { ProfileComponent } from "./account/profile/profile.component";
 import { DeliveryComponent } from "./views/delivery/delivery.component";
 import { DispatchComponent } from "./views/dispatch/dispatch.component";
+import { PaymentComponent } from "./views/payment/payment.component";
+import { PaymentExtComponent } from "./views/payment-ext/payment-ext.component";
 
 const routes: Routes=[
     { path: 'home', component: HomeComponent },
@@ -19,6 +21,8 @@ const routes: Routes=[
     { path: 'profile', component: ProfileComponent },
     { path: 'delivery', component: DeliveryComponent },
     { path: 'dispatch', component: DispatchComponent },
+    { path: 'payment', component: PaymentComponent },
+    { path: 'payment_ext', component: PaymentExtComponent },
     { path: '', redirectTo: 'product', pathMatch: 'full' }
 ];
 

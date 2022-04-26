@@ -1,8 +1,12 @@
 <div class="container py-3">
     <div class="card p-1">
         <h4>Hola {{userForm.get('nombres')?.value}}, revisa el estado de tus compras.</h4>
+        <div *ngIf="count==0" class="alert alert-danger" role="alert">
+            <strong>Aún no ha realizado ninguna compra...</strong>
+            <button (click)="continueShoping()" type="button" class="btn btn-outline-danger">Ir a tienda virtual</button>
+        </div>
     </div>
-    <div class="justify-content-center align-items-center" style="width: 100%;">
+    <div *ngIf="count>0" class="justify-content-center align-items-center" style="width: 100%;">
         <div class="pb-3">
             <div class="py-1"><table class="table table-hover" id="table-items" style="width:100%">  
                 <thead>

@@ -1,6 +1,9 @@
 <div class="container py-3">
     <div class="card p-1">
-        <h4>Hola {{userForm.get('nombres')?.value}}, los pedidos por entregar.</h4>
+        <h4>Hola {{userForm.get('nombres')?.value}}, ¿Qué hay para hacer hoy?.</h4>
+        <div *ngIf="count==0" class="alert alert-danger" role="alert">
+            <strong>No tienes ninguna venta por entregar...</strong>
+        </div>
     </div>
     <div *ngIf="count>0" class="justify-content-center align-items-center" style="width: 100%;">
         <div class="pb-3">
@@ -12,6 +15,8 @@
                         <th scope="col">Delivery?</th>
                         <th scope="col">Payment</th>
                         <th scope="col"  style="width: 120px; text-align: right;">Total Amount</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">References</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -22,6 +27,8 @@
                             <td style="width: 60px; text-align: center;">{{c.delivery}}</td>
                             <td>{{c.payment}}</td>
                             <td style="width: 36px; text-align: right;">{{c.totalAmount}}</td>
+                            <td>{{c.address}}</td>
+                            <td>{{c.referece}}</td>
                             <td>
                                 <button (click)="selectDispatched(c.salesID)" class="btn btn-outline-primary" type="button" data-toggle="collapse"
                                 data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Details</button>

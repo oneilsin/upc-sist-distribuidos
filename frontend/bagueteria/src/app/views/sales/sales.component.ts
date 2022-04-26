@@ -10,7 +10,7 @@ import { SalesService } from 'src/app/services/sales.service';
   styleUrls: ['./sales.component.css']
 })
 export class SalesComponent implements OnInit {
-  total: any;
+  count: any;
   detailList: any[] = [];
   saleList: any[] = [];
   userForm = this.fb.group({
@@ -37,6 +37,7 @@ export class SalesComponent implements OnInit {
     this.salesService.getSalesByCustomer(Number(_customerID)).subscribe((rest: any) => {
       if (rest.isSuccess) {
         this.saleList = rest.data;
+        this.count=rest.data.length;
       }
     });
   };
@@ -49,6 +50,9 @@ export class SalesComponent implements OnInit {
   }
   showDetails(idSales:Number) {
     this.getDetails(idSales);
+  }
+  continueShoping() {
+    this.router.navigate(["product"]);
   }
   ngOnInit(): void {
     this.initUserInfo();

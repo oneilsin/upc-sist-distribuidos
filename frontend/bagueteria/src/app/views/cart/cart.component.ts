@@ -1,4 +1,3 @@
-import { JsonpClientBackend } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,9 +14,11 @@ export class CartComponent implements OnInit {
   cartList: any[] = [];
   payList: any[] = [];
   total: any;
+  isAddress: any;
   userForm = this.fb.group({
     nombres: [''],
-    idUsuario: ['']
+    idUsuario: [''],
+    address: ['']
   });
 
   saleForm = this.fb.group({
@@ -30,9 +31,9 @@ export class CartComponent implements OnInit {
   productForm = this.fb.group({
     orderID: ['', [Validators.required, Validators.minLength(1)]],
     quantity: [1, [Validators.required, Validators.min(1)]],
-    stockID: ['', [Validators.required, Validators.minLength(1)]]    
+    stockID: ['', [Validators.required, Validators.minLength(1)]]
   })
-  
+
   constructor(private fb: FormBuilder,
     private readonly productService: ProductService,
     private readonly salesService: SalesService,
@@ -61,18 +62,20 @@ export class CartComponent implements OnInit {
     var data = JSON.parse(_token);
     this.userForm.patchValue({
       nombres: data.nombres,
-      idUsuario: data.idUsuario
+      idUsuario: data.idUsuario,
+      address: data.address
     });
+    this.isAddress = this.userForm.get('address')?.value.length < 5 ? false : true;
   };
 
-  editItemOnCart(orderID: number, stockID: number){//, quantity: number) {
+  editItemOnCart(orderID: number, stockID: number) {//, quantity: number) {
     this.productForm.patchValue({
       //quantity: quantity,
       stockID: stockID,
       orderID: orderID,
     });
 
-   // console.log(this.productForm.value);
+    // console.log(this.productForm.value);
 
     if (this.productForm.valid) {
       this.productService.editToCart(this.productForm.value).subscribe((rest: any) => {
@@ -87,31 +90,72 @@ export class CartComponent implements OnInit {
     this.salesService.getPayment().subscribe((rest: any) => {
       if (rest.isSuccess) {
         this.payList = rest.data;
-       // console.log(rest.data);
+        // console.log(rest.data);
       }
     });
   }
 
+  // searchAddress(){
+  //   var _address = this.userForm.get('address')?.value;
+  //   if(_address.length<5){
+  //     alert("Ustes ha seleccionado el servicio de Delivery, y no tenemos su dirección de domicilio. Por favor, actualizar datos.")
+  //     this.router.navigate(['profile']);
+  //   }
+  // }
 
   shippingAll() {
     this.saleForm.patchValue({
       customerID: Number(this.userForm.get('idUsuario')?.value)
     });
-
-    //console.log(this.saleForm.value);
-    if (this.saleForm.valid) {
-      confirm("¿Desea finalizar la compra, esto cerrará la canastilla?.");
-      this.salesService.createSale(this.saleForm.value).subscribe((rest: any) => {
-        if (rest.isSuccess) {
-          this.getCartItems();
-          this.countCart();
-          //console.log(rest);
-          this.router.navigate(['sales']);
-        }
-      });
-      
+    //Validar si selecciona Delivery
+    if (this.saleForm.get('delivery')?.value) {
+      if (!this.isAddress) {
+        alert("Ustes ha seleccionado el servicio de Delivery, y no tenemos su dirección de domicilio. Por favor, actualizar datos.")        
+        this.router.navigate(['profile']);
+        return;
+      }
     }
-    //console.log(this.saleForm.value);
+    //Validamos tipo de pago
+    var _tpay = this.saleForm.get('paymentID')?.value;
+    if (_tpay == 7 || _tpay == 8) {//Pasarella : API
+      if (this.saleForm.valid) {
+        //confirm("¿Desea finalizar la compra, esto cerrará la canastilla?.");
+        this.salesService.createSale(this.saleForm.value).subscribe((rest: any) => {
+          if (rest.isSuccess) {
+            this.getCartItems();
+            this.countCart();
+            //console.log(rest);
+            this.router.navigate(['payment_ext']);
+          }
+        });
+      }
+    }/* else if (_tpay == 4 || _tpay == 5 || _tpay == 6) {
+      if (this.saleForm.valid) {
+       // confirm("¿Desea finalizar la compra, esto cerrará la canastilla?.");
+        this.salesService.createSale(this.saleForm.value).subscribe((rest: any) => {
+          if (rest.isSuccess) {
+            this.getCartItems();
+            this.countCart();
+            //console.log(rest);
+            this.router.navigate(['payment']);
+          }
+        });
+      }
+    } */else {      
+      // Pago contra-entrega
+      if (this.saleForm.valid) {
+        confirm("¿Desea finalizar la compra, esto cerrará la canastilla?.");
+        this.salesService.createSale(this.saleForm.value).subscribe((rest: any) => {
+          if (rest.isSuccess) {
+            this.getCartItems();
+            this.countCart();
+            //console.log(rest);
+            window.location.href = "/sales";
+            //this.router.navigate(['sales']);
+          }
+        });
+      }
+    }
   }
 
   continueShoping() {
@@ -131,8 +175,9 @@ export class CartComponent implements OnInit {
         //console.log(rs.data.length);
 
       }
-    });   
+    });
   }
+
 
   ngOnInit(): void {
     this.initUserInfo();

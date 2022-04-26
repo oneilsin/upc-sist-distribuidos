@@ -1,1 +1,63 @@
-<p>profile works!</p>
+<div class="container py-5">
+
+    <div class="card text-left">
+        <img class="card-img-top" src="" alt="">
+        <div class="card-body">
+            <h4 class="card-title">Mi Perfil</h4>
+            <p class="card-text">Actualización de datos</p>
+            <form class="" [formGroup]="profileForm">
+                <div class="input-group mb-3">
+                    <span class="input-group-text label_w" id="basic-addon1" >Nombres</span>
+                    <input type="text" class="form-control" placeholder="" aria-label="Username"
+                        aria-describedby="basic-addon1" formControlName="customerName">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text label_w" id="basic-addon1">Apellidos</span>
+                    <input type="text" class="form-control" placeholder="" aria-label="Username"
+                        aria-describedby="basic-addon1" formControlName="lastName">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text label_w" id="basic-addon1">Documento</span>
+                    <input type="text" class="form-control" placeholder="" aria-label="Username"
+                        aria-describedby="basic-addon1" formControlName="cardID">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text label_w" id="basic-addon1">F. Nacim.</span>
+                    <input type="date" class="form-control" placeholder="" aria-label="Username"
+                        aria-describedby="basic-addon1" formControlName="bithday" value="{{profileForm.get('bithday')?.value|date:'yyyy-MM-dd'}}" >
+                </div>
+                
+                <div class="input-group mb-3">
+                    <div class="custom-control custom-checkbox mr-sm-2">
+                        <input type="checkbox" formControlName="gender"
+                            class="custom-control-input" id="customControlAutosizing">
+                        <label class="custom-control-label" for="customControlAutosizing">Sexo?
+                            <small class="text-muted">Casilla marcada (Hombre/Mujer).</small>
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text label_w" id="basic-addon1">Email</span>
+                    <input type="text" class="form-control" placeholder="" aria-label="Username"
+                        aria-describedby="basic-addon1" value="{{_mail}}" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text label_w" id="basic-addon1">Contraseña</span>
+                    <input type="password" class="form-control" placeholder="" aria-label="Username"
+                        aria-describedby="basic-addon1" formControlName="password">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text label_w" id="basic-addon1">Dirección</span>
+                    <textarea class="form-control" aria-label="With textarea" formControlName="address"></textarea>
+                </div>
+               
+                <div class="input-group">
+                    <span class="input-group-text label_w">Referencia</span>
+                    <textarea class="form-control" aria-label="With textarea" formControlName="referece"></textarea>
+                </div>
+                <hr>
+                <button (click)="update()" type="submit" class="btn btn-primary">Guardar cambios</button>
+            </form>
+        </div>
+    </div>
+</div>

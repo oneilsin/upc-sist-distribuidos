@@ -24,7 +24,7 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.SecurityRepositories
             string sqlQuery = @"
                 SELECT
 	                CustomerID AS IdUsuario, [Name] AS Nombres, LastName AS Apellidos, 
-	                CardID As Documento, Email, [Role]
+	                CardID As Documento, Email, [Role], [Address]
                 FROM Customer
                 WHERE Email = @email AND Password = @password
             ";
@@ -37,7 +37,7 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.SecurityRepositories
                     new SqlParameter("@email",login.User),
                     new SqlParameter("@password",login.Password)
                 });
-                if (response != null)
+                if (response != null && response.Count()>0)
                 {
                     var objLogin = new LoginResponse();
                     objLogin = response.ToList().FirstOrDefault();
@@ -53,7 +53,7 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.SecurityRepositories
                     objReturn = new EntityResponse()
                     {
                         IsSuccess = false,
-                        ErrorMessage = "No se ha encontrado datos.",
+                        ErrorMessage = "No se ha encontrado datos. Usuario o contraseña inválidos.",
                         Data = null
                     };
                 }

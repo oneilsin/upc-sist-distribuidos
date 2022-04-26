@@ -11,5 +11,7 @@ namespace UPC.Bagueteria.Domain.Queries.SalesQuerieResult
         public bool Delivery { get; set; }
         public string Payment { get; set; }
         public decimal TotalAmount { get; set; }
+        public string Address { get; set; }
+        public string Referece { get; set; }
     }
 }

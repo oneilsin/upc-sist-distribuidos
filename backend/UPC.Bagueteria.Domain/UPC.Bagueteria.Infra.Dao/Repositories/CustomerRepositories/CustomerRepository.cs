@@ -19,16 +19,12 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.CustomerRepositories
         public async Task<EntityResponse> Create(Customer customer)
         {
             EntityResponse objReturn;
-            var query = @"INSERT INTO Customer 
-                        OUTPUT inserted.CustomerID 
-                        VALUES(@Name, '', '', '', 'M', 
-	                        @Email, @Password, 'customer', 0
-                        );";
+            var query = "UspCustomerCreate";
             try
             {
                 var response = await _adoContext.ExecuteEscalar(
                 query,
-                System.Data.CommandType.Text,
+                System.Data.CommandType.StoredProcedure,
                 new SqlParameter[]
                 {
                     new SqlParameter("@Name", customer.Name),
@@ -125,7 +121,8 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.CustomerRepositories
             EntityResponse objReturn;
             var query = @"UPDATE Customer
                         SET [Name]=@Name, LastName=@LastName, CardID=@CardID,
-	                        Bithday=@Bithday, Gender=@Gender, [Password]=@Password
+	                        Bithday=@Bithday, Gender=@Gender, [Password]=@Password,
+                            [Address]=@Address, Referece=@Referece
                         OUTPUT inserted.CustomerID
                         WHERE CustomerID=@Id;";
             try
@@ -141,6 +138,8 @@ namespace UPC.Bagueteria.Infra.Dao.Repositories.CustomerRepositories
                     new SqlParameter("@Bithday", customer.Bithday),
                     new SqlParameter("@Gender", customer.Gender),
                     new SqlParameter("@Password", customer.Password),
+                    new SqlParameter("@Address", customer.Address),
+                    new SqlParameter("@Referece", customer.Referece),
                     new SqlParameter("@Id", customer.CustomerID)
                 });
                 var _retId = response.ToString();

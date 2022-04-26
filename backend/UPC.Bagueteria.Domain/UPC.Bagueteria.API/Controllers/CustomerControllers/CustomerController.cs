@@ -41,16 +41,52 @@ namespace UPC.Bagueteria.API.Controllers.CustomerControllers
             {
                 var response = await uow.Customer.Modify(new Customer()
                 {
-                    Name = model.Name,
+                    Name = model.CustomerName,
                     LastName = model.LastName,
                     CardID = model.CardID,
                     Bithday = model.Bithday,
-                    Gender = model.Gender,
+                    Gender = model.Gender?'M':'F',
                     Password = model.Password,
                     CustomerID = model.CustomerID,
+                    Address = model.Address,
+                    Referece = model.Referece,
                 });
 
                 return Json(response);
+            }
+        }
+
+        [Produces("application/json")]
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("GetCustomerById")]
+        public async Task<ActionResult> GetCustomerById(string idCustomer)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                EntityResponse objReturn = new EntityResponse();
+                var response = await uow.Customer.GetById(idCustomer);
+                if (response != null)
+                {
+                    objReturn = new EntityResponse()
+                    {
+                        IsSuccess = true,
+                        Data = new
+                        {
+                            CustomerID = response.CustomerID,
+                            Name = response.Name,
+                            LastName= response.LastName,
+                            CardID = response.CardID,
+                            Bithday= response.Bithday,
+                            Gender = response.Gender=='M'?true:false,
+                            Email = response.Email,
+                            Address= response.Address,
+                            Password = response.Password,
+                            Referece=response.Referece,
+                        }
+                    };
+                }               
+                return Json(objReturn);
             }
         }
     }

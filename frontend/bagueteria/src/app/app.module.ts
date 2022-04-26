@@ -14,7 +14,9 @@ import { SalesComponent } from './views/sales/sales.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { DeliveryComponent } from './views/delivery/delivery.component';
-import { DispatchComponent } from './views/dispatch/dispatch.component'; 
+import { DispatchComponent } from './views/dispatch/dispatch.component';
+import { PaymentComponent } from './views/payment/payment.component';
+import { PaymentExtComponent } from './views/payment-ext/payment-ext.component'; 
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { DispatchComponent } from './views/dispatch/dispatch.component';
     ProductComponent,
     SalesComponent,
     DeliveryComponent,
-    DispatchComponent
+    DispatchComponent,
+    PaymentComponent,
+    PaymentExtComponent
   ],
   imports: [
     BrowserModule,
