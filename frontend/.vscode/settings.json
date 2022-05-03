@@ -1,0 +1,8 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/034ac69c-ea1c-4d08-8dc5-474a271ea1d5/resourceGroups/upc_2022I/providers/Microsoft.Web/sites/upc-frontend-bagueteria",
+    "appService.deploySubpath": "bagueteria\\dist\\bagueteria",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ]
+}

@@ -9,7 +9,7 @@ export class CustomerService {
   constructor(private readonly http: HttpClient ) { }
 
   getCustomerById(idCustomer: Number){
-    return this.http.get<any>('https://localhost:44309/api/Customers/GetCustomerById?idCustomer='+idCustomer);
+    return this.http.get<any>('http://ww2.jockeyclub.org.pe:8086/api/Customers/GetCustomerById?idCustomer='+idCustomer);
   }
 
 }

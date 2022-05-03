@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <input type="text" id="user">
+        <input type="button" name="send" id="send" value="Create speach" onclick="send()">
+        <div>
+            <p>
+                Hola <b id="_user"></b>, buenos días. Soy Alcides Reynaga, estoy haciendo el seguimiento para la activación 
+                    del TOKEN de la nueva VPN, necesito saber si lograste activar el token para poder 
+                    configurar tu acceso para la nueva VPN.
+                    <br>
+                    Me comentas, por favor.
+                    
+            </p>
+        </div>
+
+        <script>
+            function send(){
+                let value = document.getElementById("user").value;
+                let content = document.getElementById("_user");
+                content.innerText = value;
+            }
+        </script>
+</body>
+</html>
